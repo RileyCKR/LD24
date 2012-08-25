@@ -39,11 +39,11 @@ namespace LD24
             Camera = new Camera();
 
             SceneGraph = new SceneGraph();
-            SceneGraph.Add(Virus);
             foreach (Cell cell in Cells)
             {
                 SceneGraph.Add(cell);
             }
+            SceneGraph.Add(Virus);
         }
 
         public void Update(GameTime gameTime)
