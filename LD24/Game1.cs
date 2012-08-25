@@ -39,6 +39,7 @@ namespace LD24
         {
             InputState = new InputState();
             base.Initialize();
+            RNG.Seed();
         }
 
         protected override void LoadContent()

@@ -109,6 +109,7 @@
   <ItemGroup>
     <Compile Include="Camera.cs" />
     <Compile Include="Cell.cs" />
+    <Compile Include="RNG.cs" />
     <Compile Include="SceneGraph.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="SpriteType.cs" />
