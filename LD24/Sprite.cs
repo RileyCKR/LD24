@@ -45,7 +45,7 @@ namespace LD24
             Center = new Point(drawBounds.Width / 2, drawBounds.Height / 2);
         }
 
-        public virtual void Update()
+        public virtual void Update(SceneGraph graph)
         {
         }
 

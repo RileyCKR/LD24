@@ -39,7 +39,7 @@ namespace LD24
             {
                 Sprite node = layer[x];
 
-                node.Update();
+                node.Update(this);
 
                 //UpdateRecursive(node.Children);
             }
@@ -63,9 +63,15 @@ namespace LD24
                 //Don't check for collisions with the caller
                 if (node != caller)
                 {
+                    if (node.Type == SpriteType.Virus && caller.Type == SpriteType.Virus)
+                    {
+                        continue;
+                    }
+
                     if (node.CollisionBox.Intersects(caller.CollisionBox))
                     {
                         caller.OnCollision(node);
+                        return;
                     }
                 }
             }

@@ -28,7 +28,7 @@ namespace LD24
 
         public void Initialize()
         {
-            Virus = new Virus(GameTextures.Virus1, new Rectangle(0, 0, 16, 32));
+            Virus = Virus.Build();
             Cells = new Cell[]
             {
                 new Cell(GameTextures.Cell1, new Rectangle(0, 0, 64, 64)) { Position = new Vector2(200, 200) },
