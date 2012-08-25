@@ -14,6 +14,7 @@ namespace LD24
         public Vector2 Position { get; set; }
         public Rectangle DrawBounds { get; set; }
         public Vector2 Center { get; set; }
+        public SpriteType Type { get; protected set; }
 
         private float _Rotation;
         public float Rotation

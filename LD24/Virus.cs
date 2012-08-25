@@ -16,6 +16,7 @@ namespace LD24
             : base (texture, drawBounds)
         {
             this.Speed = 0.15F;
+            this.Type = SpriteType.Virus;
         }
 
         public override void Update()

@@ -14,6 +14,7 @@ namespace LD24
         public Cell(Texture2D texture, Rectangle drawBounds)
             : base (texture, drawBounds)
         {
+            this.Type = SpriteType.Cell;
         }
     }
 }
