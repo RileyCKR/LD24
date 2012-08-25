@@ -27,6 +27,8 @@ namespace LD24
         {
             //Moves the nodes
             UpdateRecursive(Graph);
+
+            ProcessCollisionsFirstLoop(Graph);
         }
 
         private void UpdateRecursive(IList<Sprite> layer)
@@ -40,6 +42,32 @@ namespace LD24
                 node.Update();
 
                 //UpdateRecursive(node.Children);
+            }
+        }
+
+        private void ProcessCollisionsFirstLoop(IList<Sprite> layer)
+        {
+            for (int x = 0; x < layer.Count; x++)
+            {
+                Sprite node = layer[x];
+
+                ProcessCollisionsRecursive(Graph, node);
+            }
+        }
+
+        private void ProcessCollisionsRecursive(IList<Sprite> layer, Sprite caller)
+        {
+            for (int x = 0; x < layer.Count; x++)
+            {
+                Sprite node = layer[x];
+                //Don't check for collisions with the caller
+                if (node != caller)
+                {
+                    if (node.CollisionBox.Intersects(caller.CollisionBox))
+                    {
+                        caller.OnCollision(node);
+                    }
+                }
             }
         }
 

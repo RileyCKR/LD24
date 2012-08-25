@@ -33,6 +33,13 @@ namespace LD24
             }
         }
 
+        public override void OnCollision(Sprite caller)
+        {
+            base.OnCollision(caller);
+
+            this.Velocity = Vector2.Zero;
+        }
+
         public void ApplyThrust(Vector2 moveVector)
         {
             if (moveVector != Vector2.Zero)
