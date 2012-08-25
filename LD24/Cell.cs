@@ -8,21 +8,12 @@ using WickedEngine;
 
 namespace LD24
 {
-    class Cell
+    class Cell : Sprite
     {
-        public Texture2D Texture { get; protected set; }
-        public Color Tint { get; set; }
-        public Vector2 Position { get; set; }
 
-        public Cell(Texture2D texture)
+        public Cell(Texture2D texture, Rectangle drawBounds)
+            : base (texture, drawBounds)
         {
-            this.Tint = Color.White;
-            this.Texture = texture;
-        }
-
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(Texture, Position, Texture.Bounds, Color.White);
         }
     }
 }

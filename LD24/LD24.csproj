@@ -109,6 +109,8 @@
   <ItemGroup>
     <Compile Include="Camera.cs" />
     <Compile Include="Cell.cs" />
+    <Compile Include="SceneGraph.cs" />
+    <Compile Include="Sprite.cs" />
     <Compile Include="Virus.cs" />
     <Compile Include="ModeGameplay.cs" />
     <Compile Include="GameTextures.cs" />

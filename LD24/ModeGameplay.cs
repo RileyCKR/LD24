@@ -18,6 +18,7 @@ namespace LD24
         Cell[] Cells;
         Virus Virus;
         Camera Camera;
+        SceneGraph SceneGraph;
 
         public ModeGameplay(Game game, InputState inputState)
         {
@@ -27,15 +28,22 @@ namespace LD24
 
         public void Initialize()
         {
-            Virus = new Virus(GameTextures.Virus1);
+            Virus = new Virus(GameTextures.Virus1, new Rectangle(0, 0, 32, 32));
             Cells = new Cell[]
             {
-                new Cell(GameTextures.Cell1) { Position = new Vector2(200, 200) },
-                new Cell(GameTextures.Cell1) { Position = new Vector2(-100, -300) },
-                new Cell(GameTextures.Cell1) { Position = new Vector2(600, 100) },
-                new Cell(GameTextures.Cell1) { Position = new Vector2(1000, 1000) }
+                new Cell(GameTextures.Cell1, new Rectangle(0, 0, 64, 64)) { Position = new Vector2(200, 200) },
+                new Cell(GameTextures.Cell1, new Rectangle(0, 0, 64, 64)) { Position = new Vector2(-100, -300) },
+                new Cell(GameTextures.Cell1, new Rectangle(0, 0, 64, 64)) { Position = new Vector2(600, 100) },
+                new Cell(GameTextures.Cell1, new Rectangle(0, 0, 64, 64)) { Position = new Vector2(1000, 1000) }
             };
             Camera = new Camera();
+
+            SceneGraph = new SceneGraph();
+            SceneGraph.Add(Virus);
+            foreach (Cell cell in Cells)
+            {
+                SceneGraph.Add(cell);
+            }
         }
 
         public void Update(GameTime gameTime)
@@ -58,12 +66,14 @@ namespace LD24
                 Virus.ApplyThrust(Vector2.UnitX);
             }
 
-            Virus.Update();
-            
+            SceneGraph.Update();
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Rectangle screenBounds)
         {
+            //TODO: Move lock to update?
+            Camera.Lock(Virus.Position, screenBounds);
+
             spriteBatch.Begin(
                 SpriteSortMode.Deferred,
                 BlendState.AlphaBlend,
@@ -73,14 +83,8 @@ namespace LD24
                 null,
                 Camera.CreateTransformation());
 
-            //TODO: Move lock to update?
-            Camera.Lock(Virus.Position, screenBounds);
+            SceneGraph.Draw(spriteBatch);
 
-            Virus.Draw(spriteBatch);
-            foreach (Cell cell in Cells)
-            {
-                cell.Draw(spriteBatch);
-            }
             spriteBatch.End();
         }
     }
