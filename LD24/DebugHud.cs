@@ -15,7 +15,7 @@ namespace LD24
         public Color ColorSlow { get; set; }
         public Color ColorShadow { get; set; }
         public SpriteFont Font { get; set; }
-
+        
         private int frameRate = 0;
         private int frameCounter = 0;
         private TimeSpan elapsedTime = TimeSpan.Zero;
@@ -43,7 +43,9 @@ namespace LD24
         {
             SetFPS(gameTime.ElapsedGameTime);
 
-            string text = "FPS: " + frameRate + Environment.NewLine;
+            string text = "Cells Killed: " + GameStats.DeadCellCount + Environment.NewLine;
+            text += "Viruses Killed: " + GameStats.DeadVirusCount + Environment.NewLine;
+            text += "FPS: " + frameRate + Environment.NewLine;
             text += "Viruses: " + CountVirus + Environment.NewLine;
             text += "Cells: " + CountCell + Environment.NewLine;
             text += "TCells: " + CountTCell + Environment.NewLine;
@@ -51,7 +53,7 @@ namespace LD24
             text += "Draw Calls: " + CountSpritesDrawn + Environment.NewLine;
             text += "Sprites Culled: " + CountSpritesCulled + Environment.NewLine;
             text += "Collision Checks: " + CountCollisionChecks + Environment.NewLine;
-            text += "Position: " + ((int)ModeGameplay.Virus.Position.X).ToString() + ", " + ((int)ModeGameplay.Virus.Position.Y).ToString() + Environment.NewLine;
+            text += "Position: " + ((int)GameStats.PlayerVirus.Position.X).ToString() + ", " + ((int)GameStats.PlayerVirus.Position.Y).ToString() + Environment.NewLine;
 
             SpriteBatch.Begin();
 

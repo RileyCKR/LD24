@@ -54,6 +54,7 @@ namespace LD24
                 {
                     State = CellState.Dead;
                     this.Tint = new Color(50, 50, 50, 128);
+                    GameStats.IncrementDeadCellCount();
                 }
 
                 return 1;

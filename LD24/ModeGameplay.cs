@@ -15,7 +15,6 @@ namespace LD24
     {
         Game Game;
         InputState InputState;
-        public static Virus Virus;
         Camera Camera;
         SceneGraph SceneGraph;
         DebugHud DebugHud;
@@ -33,7 +32,7 @@ namespace LD24
 
         public void Initialize()
         {
-            Rectangle map = new Rectangle(0, 0, 10000, 10000);
+            Rectangle map = new Rectangle(0, 0, 5000, 5000);
            
             SceneGraph = new SceneGraph(map, Camera);
             
@@ -47,24 +46,25 @@ namespace LD24
         {
             if (this.Game.IsActive)
             {
-                if (Virus.VirusMode != LD24.Virus.Mode.Dead)
+                Virus player = GameStats.PlayerVirus;
+                if (player.VirusMode != LD24.Virus.Mode.Dead)
                 {
                     if (InputState.KeyPressed(Keys.W))
                     {
-                        Virus.ApplyThrust(-Vector2.UnitY);
+                        player.ApplyThrust(-Vector2.UnitY);
                     }
                     else if (InputState.KeyPressed(Keys.S))
                     {
-                        Virus.ApplyThrust(Vector2.UnitY);
+                        player.ApplyThrust(Vector2.UnitY);
                     }
 
                     if (InputState.KeyPressed(Keys.A))
                     {
-                        Virus.ApplyThrust(-Vector2.UnitX);
+                        player.ApplyThrust(-Vector2.UnitX);
                     }
                     else if (InputState.KeyPressed(Keys.D))
                     {
-                        Virus.ApplyThrust(Vector2.UnitX);
+                        player.ApplyThrust(Vector2.UnitX);
                     }
                 }
                 else
@@ -75,7 +75,7 @@ namespace LD24
                         Virus newVirus = SceneGraph.FindLivingVirus();
                         if (newVirus != null)
                         {
-                            Virus = newVirus;
+                            GameStats.PlayerVirus = newVirus;
                         }
                         else
                         {
@@ -91,7 +91,7 @@ namespace LD24
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Rectangle screenBounds)
         {
             //TODO: Move lock to update?
-            Camera.Lock(Virus.Position, screenBounds);
+            Camera.Lock(GameStats.PlayerVirus.Position, screenBounds);
 
             Background.Draw();
 
@@ -140,8 +140,9 @@ namespace LD24
                 SceneGraph.Add(cell);
             }
 
-            Virus = Virus.Build();
-            SceneGraph.Add(Virus);
+            Virus player = Virus.Build();
+            SceneGraph.Add(player);
+            GameStats.PlayerVirus = player;
 
             for (int x = 0; x < numAntigens; x++)
             {
