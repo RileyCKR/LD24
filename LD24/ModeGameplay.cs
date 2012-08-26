@@ -19,6 +19,7 @@ namespace LD24
         Virus Virus;
         Camera Camera;
         SceneGraph SceneGraph;
+        DebugHud DebugHud;
 
         public ModeGameplay(Game game, InputState inputState)
         {
@@ -28,6 +29,8 @@ namespace LD24
 
         public void Initialize()
         {
+            DebugHud = new DebugHud(new Vector2(16, 16), GameTextures.FontArial, Color.Black, Color.Red, Color.Black);
+
             Virus = Virus.Build();
             Cells = new Cell[]
             {
@@ -89,6 +92,8 @@ namespace LD24
             SceneGraph.Draw(spriteBatch);
 
             spriteBatch.End();
+
+            DebugHud.Draw(gameTime, spriteBatch);
         }
     }
 }
