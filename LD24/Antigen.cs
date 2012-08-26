@@ -18,6 +18,8 @@ namespace LD24
             : base (texture, drawBounds)
         {
             this.Type = SpriteType.Antigen;
+            Velocity = RNG.RandomUnitVector();
+            this.Speed = 1;
         }
     }
 }
