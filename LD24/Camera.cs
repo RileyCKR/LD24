@@ -41,5 +41,25 @@ namespace LD24
         {
             return Matrix.CreateTranslation(new Vector3(-Center, 0f));
         }
+
+        //TODO: Need to account for edge cases when map is wrapping
+        public bool IsOnScreen(Vector2 position)
+        {
+            if (ScreenBounds.Contains(new Point((int)position.X, (int)position.Y)))
+            {
+                return true;
+            }
+            else return false;
+        }
+
+        public bool IsOnScreen(Rectangle bounds)
+        {
+            if (ScreenBounds.Contains(bounds))
+            {
+                return true;
+            }
+            else return false;
+        }
+
     }
 }

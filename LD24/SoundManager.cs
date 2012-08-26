@@ -24,7 +24,7 @@ namespace LD24
 
         public static void PlaySound(SoundEffect sound, Vector2 position, float volume)
         {
-            if (camera.ScreenBounds.Contains(new Point((int)position.X, (int)position.Y)))
+            if (camera.IsOnScreen(position))
             {
                 sound.Play(volume, 0F, 0F);
             }
