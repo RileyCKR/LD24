@@ -11,7 +11,16 @@ namespace LD24
     {
         public static Antigen Build()
         {
-            return new Antigen(GameAssets.Antigen1, new Rectangle(0, 0, 32, 32));
+            Animation anim = new Animation(2, 32, 32, 0, 0)
+            {
+                FramesPerSecond = 1
+            };
+
+            return new Antigen(GameAssets.Antigen1, new Rectangle(0, 0, 32, 32))
+            {
+                IsAnimating = true,
+                Animation = anim
+            };
         }
 
         public Antigen(Texture2D texture, Rectangle drawBounds)
