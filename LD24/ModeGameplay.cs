@@ -58,22 +58,25 @@ namespace LD24
 
         public void Update(GameTime gameTime)
         {
-            if (InputState.KeyPressed(Keys.W))
+            if (Virus.VirusMode != LD24.Virus.Mode.Dead)
             {
-                Virus.ApplyThrust(-Vector2.UnitY);
-            }
-            else if (InputState.KeyPressed(Keys.S))
-            {
-                Virus.ApplyThrust(Vector2.UnitY);
-            }
+                if (InputState.KeyPressed(Keys.W))
+                {
+                    Virus.ApplyThrust(-Vector2.UnitY);
+                }
+                else if (InputState.KeyPressed(Keys.S))
+                {
+                    Virus.ApplyThrust(Vector2.UnitY);
+                }
 
-            if (InputState.KeyPressed(Keys.A))
-            {
-                Virus.ApplyThrust(-Vector2.UnitX);
-            }
-            else if (InputState.KeyPressed(Keys.D))
-            {
-                Virus.ApplyThrust(Vector2.UnitX);
+                if (InputState.KeyPressed(Keys.A))
+                {
+                    Virus.ApplyThrust(-Vector2.UnitX);
+                }
+                else if (InputState.KeyPressed(Keys.D))
+                {
+                    Virus.ApplyThrust(Vector2.UnitX);
+                }
             }
 
             SceneGraph.Update();
