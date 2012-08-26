@@ -27,6 +27,7 @@ namespace LD24
         internal static SoundEffect CellDeadSound { get; private set; }
 
         internal static Song Music { get; private set; }
+        internal static Song VictoryMusic { get; private set; }
 
         internal static void Load(ContentManager contentManager)
         {
@@ -45,6 +46,7 @@ namespace LD24
             CellDeadSound = contentManager.Load<SoundEffect>(@"Sounds\CelLDead");
 
             Music = contentManager.Load<Song>(@"Music");
+            VictoryMusic = contentManager.Load<Song>(@"VictoryMusic");
         }
     }
 }

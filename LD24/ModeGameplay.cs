@@ -124,7 +124,7 @@ namespace LD24
                     }
                 }
 
-                if (GameStats.DeadCellCount >= 50)
+                if (GameStats.DeadCellCount >= 50 && !victory)
                 {
                     Victory();
                 }
@@ -217,6 +217,10 @@ namespace LD24
 
         private void Victory()
         {
+            if (MediaPlayer.State == MediaState.Playing)
+            {
+                SoundManager.PlayMusicVictory();
+            }
             victory = true;
             VictoryModal = VictoryModal.Build();
         }

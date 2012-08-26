@@ -42,6 +42,12 @@ namespace LD24
             }
         }
 
+        public static void PlayMusicVictory()
+        {
+            MediaPlayer.Stop();
+            MediaPlayer.Play(GameAssets.VictoryMusic);
+        }
+
         public static void StopMusic()
         {
             if (MediaPlayer.State != MediaState.Stopped)
