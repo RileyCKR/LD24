@@ -113,6 +113,8 @@
     <Compile Include="Bubble.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="Cell.cs" />
+    <Compile Include="VictoryModal.cs" />
+    <Compile Include="GameOverModal.cs" />
     <Compile Include="DebugHud.cs" />
     <Compile Include="Evolution.cs" />
     <Compile Include="EvolutionModal.cs" />

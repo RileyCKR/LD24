@@ -20,8 +20,12 @@ namespace LD24
         DebugHud DebugHud;
         Background Background;
         EvolutionModal EvoModal;
+        GameOverModal GameOverModal;
+        VictoryModal VictoryModal;
 
         int deathCounter = 0;
+        bool gameOver;
+        bool victory;
 
         public ModeGameplay(Game game, InputState inputState, GraphicsDevice graphicsDevice)
         {
@@ -113,6 +117,19 @@ namespace LD24
                         EvoModal.Select();
                     }
                 }
+
+                if (GameStats.DeadCellCount >= 50)
+                {
+                    Victory();
+                }
+
+                if (gameOver || victory)
+                {
+                    if (InputState.KeyPressed(Keys.Enter) || InputState.KeyPressed(Keys.Escape))
+                    {
+                        this.Game.Exit();
+                    }
+                }
             }
         }
 
@@ -151,13 +168,51 @@ namespace LD24
                 spriteBatch.End();
             }
 
+            if (gameOver)
+            {
+                spriteBatch.Begin(
+                    SpriteSortMode.Deferred,
+                    BlendState.AlphaBlend,
+                    SamplerState.PointClamp,
+                    null,
+                    null,
+                    null);
+
+                GameOverModal.Draw(spriteBatch, SceneGraph.Map, Camera);
+
+                spriteBatch.End();
+            }
+
+            if (victory)
+            {
+                spriteBatch.Begin(
+                    SpriteSortMode.Deferred,
+                    BlendState.AlphaBlend,
+                    SamplerState.PointClamp,
+                    null,
+                    null,
+                    null);
+
+                VictoryModal.Draw(spriteBatch, SceneGraph.Map, Camera);
+
+                spriteBatch.End();
+            }
+
             DebugHud.Draw(gameTime, spriteBatch);
         }
 
         private void GameOver()
         {
+            gameOver = true;
+            GameOverModal = GameOverModal.Build();
             //TODO: Implement
-            this.Game.Exit();
+            //this.Game.Exit();
+        }
+
+        private void Victory()
+        {
+            victory = true;
+            VictoryModal = VictoryModal.Build();
         }
 
         private void SeedLevel(Rectangle map)
