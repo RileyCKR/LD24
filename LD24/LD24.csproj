@@ -113,6 +113,7 @@
     <Compile Include="Camera.cs" />
     <Compile Include="Cell.cs" />
     <Compile Include="DebugHud.cs" />
+    <Compile Include="Evolution.cs" />
     <Compile Include="EvolutionModal.cs" />
     <Compile Include="GameStats.cs" />
     <Compile Include="RNG.cs" />

@@ -9,17 +9,16 @@ namespace LD24
 {
     class EvolutionModal : Sprite
     {
-        private int SelectedIndex = 0;
+        public static int SelectedIndex = 0;
         private SpriteFont Font;
 
-        private string[] Evolutions = new string[]
+        private static Evolution[] MenuItems;
+
+        public static void SetMenuItems(Evolution[] items)
         {
-            "More Children",
-            "Quickness",
-            "Resilient",
-            "Immune Compromiser",
-            "Antigen-Proof"
-        };
+            MenuItems = items;
+            SelectedIndex = 0;
+        }
 
         public static EvolutionModal Build()
         {
@@ -70,23 +69,28 @@ namespace LD24
             ClampMenu();
         }
 
+        public void Select()
+        {
+            GameStats.SelectEvolution(MenuItems[SelectedIndex].ID);
+        }
+
         private void ClampMenu()
         {
             if (SelectedIndex < 0)
             {
                 SelectedIndex = 0;
             }
-            else if (SelectedIndex > Evolutions.Length - 1)
+            else if (SelectedIndex > MenuItems.Length - 1)
             {
-                SelectedIndex = Evolutions.Length - 1;
+                SelectedIndex = MenuItems.Length - 1;
             }
         }
 
         private string GetMenu()
         {
-            string text = "Evolution Unlocked! (Up/Down to select; Enter to choose)" + Environment.NewLine + Environment.NewLine;
+            string text = "Evolution Unlocked!" + Environment.NewLine + "(Up/Down to select; Enter to choose)" + Environment.NewLine + Environment.NewLine;
 
-            for (int x = 0; x < Evolutions.Length; x++)
+            for (int x = 0; x < MenuItems.Length; x++)
             {
                 if (x == SelectedIndex)
                 {
@@ -96,7 +100,7 @@ namespace LD24
                 {
                     text += "  ";
                 }
-                text += Evolutions[x] + Environment.NewLine;
+                text += MenuItems[x].Description + Environment.NewLine;
             }
 
             return text;

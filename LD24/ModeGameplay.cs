@@ -93,6 +93,18 @@ namespace LD24
                 else
                 {
                     //Show evolution screen
+                    if (InputState.KeyDown(Keys.Up) || InputState.KeyDown(Keys.W))
+                    {
+                        EvoModal.MoveCaratDown();
+                    }
+                    else if (InputState.KeyDown(Keys.Down) || InputState.KeyDown(Keys.S))
+                    {
+                        EvoModal.MoveCaratUp();
+                    }
+                    else if (InputState.KeyDown(Keys.Enter))
+                    {
+                        EvoModal.Select();
+                    }
                 }
             }
         }
@@ -116,8 +128,6 @@ namespace LD24
             SceneGraph.Draw(spriteBatch);
 
             spriteBatch.End();
-
-            
 
             if (GameStats.NeedsEvolve)
             {
