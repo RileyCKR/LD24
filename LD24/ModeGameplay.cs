@@ -29,15 +29,15 @@ namespace LD24
 
         public void Initialize()
         {
-            DebugHud = new DebugHud(new Vector2(16, 16), GameTextures.FontArial, Color.Black, Color.Red, Color.Black);
+            DebugHud = new DebugHud(new Vector2(16, 16), GameAssets.FontArial, Color.Black, Color.Red, Color.Black);
 
             Virus = Virus.Build();
             Cells = new Cell[]
             {
-                new Cell(GameTextures.Cell1, new Rectangle(0, 0, 64, 64)) { Position = new Vector2(200, 200) },
-                new Cell(GameTextures.Cell1, new Rectangle(0, 0, 64, 64)) { Position = new Vector2(-100, -300) },
-                new Cell(GameTextures.Cell1, new Rectangle(0, 0, 64, 64)) { Position = new Vector2(600, 100) },
-                new Cell(GameTextures.Cell1, new Rectangle(0, 0, 64, 64)) { Position = new Vector2(1000, 1000) }
+                new Cell(GameAssets.Cell1, new Rectangle(0, 0, 64, 64)) { Position = new Vector2(200, 200) },
+                new Cell(GameAssets.Cell1, new Rectangle(0, 0, 64, 64)) { Position = new Vector2(-100, -300) },
+                new Cell(GameAssets.Cell1, new Rectangle(0, 0, 64, 64)) { Position = new Vector2(600, 100) },
+                new Cell(GameAssets.Cell1, new Rectangle(0, 0, 64, 64)) { Position = new Vector2(1000, 1000) }
             };
             Camera = new Camera();
 
@@ -48,7 +48,7 @@ namespace LD24
             }
             SceneGraph.Add(Virus);
 
-            TCell tCell = new TCell(GameTextures.TCell1, new Rectangle(0, 0, 128, 128)) { Position = new Vector2(512, 512) };
+            TCell tCell = new TCell(GameAssets.TCell1, new Rectangle(0, 0, 128, 128)) { Position = new Vector2(512, 512) };
             SceneGraph.Add(tCell);
         }
 

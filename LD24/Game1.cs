@@ -45,7 +45,7 @@ namespace LD24
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            GameTextures.Load(this.Content);
+            GameAssets.Load(this.Content);
 
             GameMode = new ModeGameplay(this, InputState);
             GameMode.Initialize();

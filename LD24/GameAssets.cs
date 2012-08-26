@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace LD24
 {
-    internal static class GameTextures
+    internal static class GameAssets
     {
         internal static Texture2D Cell1 { get; private set; }
         internal static Texture2D Virus1 { get; private set; }

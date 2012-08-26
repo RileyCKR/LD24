@@ -11,7 +11,7 @@ namespace LD24
     {
         public static Virus Build()
         {
-            return new Virus(GameTextures.Virus1, new Rectangle(0, 0, 16, 32));
+            return new Virus(GameAssets.Virus1, new Rectangle(0, 0, 16, 32));
         }
 
         public enum Mode
