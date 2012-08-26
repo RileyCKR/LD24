@@ -52,7 +52,7 @@ namespace LD24
             TCell tCell = new TCell(GameAssets.TCell1, new Rectangle(0, 0, 128, 128)) { Position = new Vector2(512, 512) };
             SceneGraph.Add(tCell);
 
-            Antigen antigen = new Antigen(GameAssets.Antigen1, new Rectangle(0, 0, 32, 32)) { Position = new Vector2(-300, 200) };
+            Antigen antigen = new Antigen(GameAssets.Antigen1, new Rectangle(0, 0, 32, 32)) { Position = new Vector2(300, 250) };
             SceneGraph.Add(antigen);
         }
 

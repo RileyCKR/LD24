@@ -12,7 +12,7 @@ namespace LD24
         public Antigen(Texture2D texture, Rectangle drawBounds)
             : base (texture, drawBounds)
         {
-            this.Type = SpriteType.Cell;
+            this.Type = SpriteType.Antigen;
         }
     }
 }

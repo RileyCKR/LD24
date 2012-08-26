@@ -17,7 +17,8 @@ namespace LD24
         public enum Mode
         {
             Free,
-            Infecting
+            Infecting,
+            Dead
         }
 
         public Vector2 Velocity { get; set; }
@@ -62,22 +63,50 @@ namespace LD24
                     Scatter();
                 }
             }
+            else if (VirusMode == Mode.Dead)
+            {
+                Vector2 newPosition = Position;
+
+                newPosition.X += Velocity.X * Speed;
+                newPosition.Y += Velocity.Y * Speed;
+                Position = newPosition;
+            }
         }
 
         public override void OnCollision(Sprite caller)
         {
-            if (VirusMode != Mode.Infecting)
+            if (VirusMode == Mode.Free)
             {
                 base.OnCollision(caller);
 
-                Cell callerCell = caller as Cell;
-                if (callerCell != null && callerCell.State != Cell.CellState.Dead)
+                if (caller.Type == SpriteType.Cell)
                 {
+                    Cell callerCell = caller as Cell;
+                    if (callerCell.State != Cell.CellState.Dead)
+                    {
+                        this.Velocity = Vector2.Zero;
+                        this.Position = caller.Position;
+                        this.InfectedCell = callerCell;
+                        this.VirusMode = Mode.Infecting;
+                    }
+                }
+                else if (caller.Type == SpriteType.TCell)
+                {
+                    TCell callerTCell = caller as TCell;
                     this.Velocity = Vector2.Zero;
                     this.Position = caller.Position;
-                    this.InfectedCell = callerCell;
-                    this.VirusMode = Mode.Infecting;
+                    Vector2 offset = GetRandomOffsetWithinBounds(callerTCell.DrawBounds);
+                    this.Position += offset;
+
+                    this.VirusMode = Mode.Dead;
                 }
+                else if (caller.Type == SpriteType.Antigen)
+                {
+                    //Antigen callerAntigen = caller as Antigen;
+                    this.VirusMode = Mode.Dead;
+                }
+                
+
             }
         }
 
@@ -113,17 +142,24 @@ namespace LD24
                 childVirus.InfectedCell = this.InfectedCell;
 
                 Vector2 childPosition = InfectedCell.Position;
-                Vector2 offset = new Vector2();
-
-                int halfWidth = InfectedCell.DrawBounds.Width / 2;
-                int halfHeight = InfectedCell.DrawBounds.Height / 2;
-                offset.X = RNG.NexVal(-halfWidth, halfWidth);
-                offset.Y = RNG.NexVal(-halfHeight, halfHeight);
+                Vector2 offset = GetRandomOffsetWithinBounds(InfectedCell.DrawBounds);
 
                 childVirus.Position = InfectedCell.Position + offset;
 
                 graph.Add(childVirus);
             }
+        }
+
+        private Vector2 GetRandomOffsetWithinBounds(Rectangle bounds)
+        {
+            Vector2 offset = new Vector2();
+
+            int halfWidth = bounds.Width / 2;
+            int halfHeight = bounds.Height / 2;
+            offset.X = RNG.NexVal(-halfWidth, halfWidth);
+            offset.Y = RNG.NexVal(-halfHeight, halfHeight);
+
+            return offset;
         }
 
         private void DrainEnergy()
