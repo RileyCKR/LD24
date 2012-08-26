@@ -26,6 +26,10 @@ namespace LD24
         private int ticks;
         public int Energy;
         private int DeathCounter = 255;
+        private int health = 2;
+        private int ImmunityCounter = 120;
+        private int ImmunityTicks = 0;
+        private bool IsImmune = false;
 
         public Virus(Texture2D texture, Rectangle drawBounds) 
             : base (texture, drawBounds)
@@ -72,6 +76,21 @@ namespace LD24
                     graph.Remove(this);
                 }
             }
+
+            if (IsImmune)
+            {
+                ImmunityTicks++;
+
+                if (ImmunityTicks >= ImmunityCounter)
+                {
+                    IsImmune = false;
+                    this.Tint = Color.White;
+                }
+                else
+                {
+                    this.Tint = Color.Red;
+                }
+            }
         }
 
         public override void OnCollision(Sprite caller)
@@ -93,22 +112,19 @@ namespace LD24
                 }
                 else if (caller.Type == SpriteType.TCell)
                 {
-                    TCell callerTCell = caller as TCell;
-                    this.Velocity = Vector2.Zero;
-                    this.Position = caller.Position;
-                    Vector2 offset = GetRandomOffsetWithinBounds(callerTCell.DrawBounds);
-                    this.Position += offset;
+                    Wound();
 
-                    this.VirusMode = Mode.Dead;
-                    this.Tint = Color.Gray;
-                    GameStats.IncrementDeadVirusCount();
+                    if (VirusMode == Mode.Dead)
+                    {
+                        this.Velocity = Vector2.Zero;
+                        this.Position = caller.Position;
+                        Vector2 offset = GetRandomOffsetWithinBounds(caller.DrawBounds);
+                        this.Position += offset;
+                    }
                 }
                 else if (caller.Type == SpriteType.Antigen)
                 {
-                    //Antigen callerAntigen = caller as Antigen;
-                    this.VirusMode = Mode.Dead;
-                    this.Tint = Color.Gray;
-                    GameStats.IncrementDeadVirusCount();
+                    Wound();
                 }
             }
         }
@@ -181,6 +197,26 @@ namespace LD24
                 if (GameStats.FlagQuickness)
                 {
                     this.Velocity = this.Velocity * 3;
+                }
+            }
+        }
+
+        private void Wound()
+        {
+            if (!IsImmune)
+            {
+                health -= GameStats.DamageCost;
+
+                if (health <= 0)
+                {
+                    this.VirusMode = Mode.Dead;
+                    this.Tint = Color.Gray;
+                    GameStats.IncrementDeadVirusCount();
+                }
+                else
+                {
+                    IsImmune = true;
+                    ImmunityTicks = 0;
                 }
             }
         }
