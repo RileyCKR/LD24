@@ -118,7 +118,7 @@ namespace LD24
         {
             int numCells = 100;
             int numTCells = 20;
-            int numAntigens = 1;
+            int numAntigens = 50;
 
             //TODO: Check for collisions before adding to sceneGraph
 

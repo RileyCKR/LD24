@@ -101,7 +101,7 @@ namespace LD24
 
         public void ApplyThrust(Vector2 moveVector)
         {
-            if (moveVector != Vector2.Zero)
+            if (VirusMode == Mode.Free && moveVector != Vector2.Zero)
             {
                 moveVector.Normalize();
                 this.Velocity += moveVector * Speed;
