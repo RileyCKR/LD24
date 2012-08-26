@@ -22,10 +22,10 @@ namespace LD24
 
         public static void PlayMusic()
         {
-            //if (MediaPlayer.State != MediaState.Playing)
-            //{
-            //    MediaPlayer.Play(GameAssets.Music);
-            //}
+            if (MediaPlayer.State != MediaState.Playing)
+            {
+                MediaPlayer.Play(GameAssets.Music);
+            }
         }
     }
 }
