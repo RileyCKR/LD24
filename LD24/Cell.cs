@@ -9,6 +9,11 @@ namespace LD24
 {
     class Cell : Sprite
     {
+        public static Cell Build()
+        {
+            return new Cell(GameAssets.Cell1, new Rectangle(0, 0, 64, 64));
+        }
+
         public enum CellState
         {
             Living,
@@ -56,5 +61,7 @@ namespace LD24
                 return 0;
             }
         }
+
+        
     }
 }

@@ -9,6 +9,11 @@ namespace LD24
 {
     class Antigen : Sprite
     {
+        public static Antigen Build()
+        {
+            return new Antigen(GameAssets.Antigen1, new Rectangle(0, 0, 32, 32));
+        }
+
         public Antigen(Texture2D texture, Rectangle drawBounds)
             : base (texture, drawBounds)
         {

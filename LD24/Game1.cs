@@ -26,8 +26,8 @@ namespace LD24
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 800;
-            graphics.PreferredBackBufferHeight = 600;
+            graphics.PreferredBackBufferWidth = 1024;
+            graphics.PreferredBackBufferHeight = 768;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             this.Window.AllowUserResizing = true;
@@ -35,10 +35,10 @@ namespace LD24
 
         protected override void Initialize()
         {
-            InputState = new InputState();
-            base.Initialize();
             //TODO: Remove hard-coded seed
             RNG.Seed(1);
+            InputState = new InputState();
+            base.Initialize();
         }
 
         protected override void LoadContent()

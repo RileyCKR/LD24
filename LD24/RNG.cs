@@ -60,5 +60,18 @@ namespace LD24
             vect.Normalize();
             return vect;
         }
+
+        public static Vector2 RandomVectorWithinBounds(Rectangle bounds)
+        {
+            int minX = bounds.Left;
+            int maxX = bounds.Right;
+            int minY = bounds.Top;
+            int maxY = bounds.Bottom;
+
+            int x = NexVal(minX, maxX);
+            int y = NexVal(minY, maxY);
+            
+            return new Vector2(x, y);
+        }
     }
 }

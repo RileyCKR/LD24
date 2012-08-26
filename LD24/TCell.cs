@@ -9,6 +9,11 @@ namespace LD24
 {
     class TCell : Sprite
     {
+        public static TCell Build()
+        {
+            return new TCell(GameAssets.TCell1, new Rectangle(0, 0, 128, 128));
+        }
+
         public TCell(Texture2D texture, Rectangle drawBounds)
             : base (texture, drawBounds)
         {

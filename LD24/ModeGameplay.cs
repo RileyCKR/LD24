@@ -33,30 +33,10 @@ namespace LD24
 
         public void Initialize()
         {
-            DebugHud = new DebugHud(new Vector2(16, 16), GameAssets.FontArial, Color.Black, Color.Red, Color.Black);
-            
-            Virus = Virus.Build();
-            Cells = new Cell[]
-            {
-                new Cell(GameAssets.Cell1, new Rectangle(0, 0, 64, 64)) { Position = new Vector2(200, 200) },
-                new Cell(GameAssets.Cell1, new Rectangle(0, 0, 64, 64)) { Position = new Vector2(-100, -300) },
-                new Cell(GameAssets.Cell1, new Rectangle(0, 0, 64, 64)) { Position = new Vector2(600, 100) },
-                new Cell(GameAssets.Cell1, new Rectangle(0, 0, 64, 64)) { Position = new Vector2(1000, 1000) }
-            };
-            Camera = new Camera();
-
             SceneGraph = new SceneGraph();
-            foreach (Cell cell in Cells)
-            {
-                SceneGraph.Add(cell);
-            }
-            SceneGraph.Add(Virus);
-
-            TCell tCell = new TCell(GameAssets.TCell1, new Rectangle(0, 0, 128, 128)) { Position = new Vector2(512, 512) };
-            SceneGraph.Add(tCell);
-
-            Antigen antigen = new Antigen(GameAssets.Antigen1, new Rectangle(0, 0, 32, 32)) { Position = new Vector2(300, 250) };
-            SceneGraph.Add(antigen);
+            SeedLevel();
+            Camera = new Camera();
+            DebugHud = new DebugHud(new Vector2(16, 16), GameAssets.FontArial, Color.Black, Color.Red, Color.Black);
         }
 
         public void Update(GameTime gameTime)
@@ -128,6 +108,40 @@ namespace LD24
         {
             //TODO: Implement
             this.Game.Exit();
+        }
+
+        private void SeedLevel()
+        {
+            int numCells = 100;
+            int numTCells = 10;
+            int numAntigens = 1;
+            Rectangle mapBounds = new Rectangle(0, 0, 10000, 10000);
+
+            //TODO: Check for collisions before adding to sceneGraph
+
+            for (int x = 0; x < numTCells; x++)
+            {
+                TCell tcell = TCell.Build();
+                tcell.Position = RNG.RandomVectorWithinBounds(mapBounds);
+                SceneGraph.Add(tcell);
+            }
+
+            for (int x = 0; x < numCells; x++)
+            {
+                Cell cell = Cell.Build();
+                cell.Position = RNG.RandomVectorWithinBounds(mapBounds);
+                SceneGraph.Add(cell);
+            }
+
+            Virus = Virus.Build();
+            SceneGraph.Add(Virus);
+
+            for (int x = 0; x < numAntigens; x++)
+            {
+                Antigen antigen = Antigen.Build();
+                antigen.Position = RNG.RandomVectorWithinBounds(mapBounds);
+                SceneGraph.Add(antigen);
+            }
         }
     }
 }
