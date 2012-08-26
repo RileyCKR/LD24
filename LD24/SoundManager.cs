@@ -15,9 +15,18 @@ namespace LD24
             MediaPlayer.IsRepeating = true;
         }
 
-        public static void PlaySound(SoundEffect sound)
+        public static Camera camera;
+
+        public static void PlaySound(SoundEffect sound, Vector2 position)
         {
-            sound.Play();
+            if (camera.ScreenBounds.Contains(new Point((int)position.X, (int)position.Y)))
+            {
+                sound.Play();
+            }
+            else
+            {
+                //Sound is offscreen, don't play it
+            }
         }
 
         public static void PlayMusic()

@@ -33,6 +33,7 @@ namespace LD24
             this.InputState = inputState;
             Background = new Background(graphicsDevice);
             Camera = new Camera(graphicsDevice.Viewport.Bounds);
+            SoundManager.camera = Camera;
         }
 
         public void Initialize()
