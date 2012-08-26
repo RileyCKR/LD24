@@ -48,7 +48,6 @@ namespace LD24
                 if (Energy <= 4)
                 {
                     State = CellState.Sick;
-                    Tint = new Color(200, 200, 200, 255);
                 }
                 if (Energy <= 0)
                 {
