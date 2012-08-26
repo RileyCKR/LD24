@@ -119,6 +119,7 @@ namespace LD24
             int numCells = 100;
             int numTCells = 20;
             int numAntigens = 50;
+            int numBubbles = 5;
 
             //TODO: Check for collisions before adding to sceneGraph
 
@@ -144,6 +145,13 @@ namespace LD24
                 Antigen antigen = Antigen.Build();
                 antigen.Position = RNG.RandomVectorWithinBounds(map);
                 SceneGraph.Add(antigen);
+            }
+
+            for (int x = 0; x < numBubbles; x++)
+            {
+                Bubble bubble = Bubble.Build();
+                bubble.Position = RNG.RandomVectorWithinBounds(new Rectangle(0, 0, 500, 500));
+                SceneGraph.Add(bubble);
             }
         }
     }

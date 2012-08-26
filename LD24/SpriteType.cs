@@ -10,6 +10,7 @@ namespace LD24
         Cell = 1,
         Virus = 2,
         TCell = 3,
-        Antigen = 4
+        Antigen = 4,
+        Bubble = 5
     }
 }

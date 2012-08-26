@@ -13,6 +13,7 @@ namespace LD24
         private List<Sprite> CellGraph = new List<Sprite>();
         private List<Sprite> TCellGraph = new List<Sprite>();
         private List<Sprite> AntigenGraph = new List<Sprite>();
+        private List<Sprite> BubbleGraph = new List<Sprite>();
 
         int NodesCulled;
         int DrawCalls;
@@ -43,6 +44,9 @@ namespace LD24
                 case SpriteType.Antigen:
                     AntigenGraph.Add(obj as Antigen);
                     break;
+                case SpriteType.Bubble:
+                    BubbleGraph.Add(obj as Bubble);
+                    break;
                 default:
                     throw new ApplicationException("Unrecognized Cell Type: " + obj.Type.ToString());
             }
@@ -54,6 +58,7 @@ namespace LD24
             UpdateRecursive(CellGraph);
             UpdateRecursive(TCellGraph);
             UpdateRecursive(AntigenGraph);
+            UpdateRecursive(BubbleGraph);
 
             DebugHud.CountVirus = VirusGraph.Count;
             DebugHud.CountCell = CellGraph.Count;
@@ -145,6 +150,7 @@ namespace LD24
             DrawRecursive(CellGraph, spriteBatch);
             DrawRecursive(VirusGraph, spriteBatch);
             DrawRecursive(AntigenGraph, spriteBatch);
+            DrawRecursive(BubbleGraph, spriteBatch);
 
             DebugHud.CountSpritesDrawn = DrawCalls;
             DebugHud.CountSpritesCulled = NodesCulled;

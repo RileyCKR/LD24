@@ -109,6 +109,7 @@
   <ItemGroup>
     <Compile Include="Antigen.cs" />
     <Compile Include="Background.cs" />
+    <Compile Include="Bubble.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="Cell.cs" />
     <Compile Include="DebugHud.cs" />
