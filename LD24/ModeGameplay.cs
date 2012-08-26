@@ -29,12 +29,13 @@ namespace LD24
             this.Game = game;
             this.InputState = inputState;
             Background = new Background(graphicsDevice);
+            Camera = new Camera(graphicsDevice.Viewport.Bounds);
         }
 
         public void Initialize()
         {
             Rectangle map = new Rectangle(0, 0, 10000, 10000);
-            Camera = new Camera();
+           
             SceneGraph = new SceneGraph(map, Camera);
             
             DebugHud = new DebugHud(new Vector2(16, 16), GameAssets.FontArial, Color.Black, Color.Red, Color.Black);
@@ -150,7 +151,7 @@ namespace LD24
             for (int x = 0; x < numBubbles; x++)
             {
                 Bubble bubble = Bubble.Build();
-                bubble.Position = RNG.RandomVectorWithinBounds(new Rectangle(0, 0, 500, 500));
+                bubble.Position = RNG.RandomVectorWithinBounds(Camera.ScreenBounds);
                 SceneGraph.Add(bubble);
             }
         }
