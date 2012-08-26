@@ -188,7 +188,7 @@ namespace LD24
 
                 //TODO: Add draw culling
                 //BoundingBox nodeBox = node.DrawBounds();
-                if (true)
+                if (Camera.IsOnScreen(node.CollisionBox))
                 {
                     DrawCalls++;
                     node.Draw(spriteBatch, Map, Camera);

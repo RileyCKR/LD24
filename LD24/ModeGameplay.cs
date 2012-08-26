@@ -22,6 +22,7 @@ namespace LD24
         EvolutionModal EvoModal;
         GameOverModal GameOverModal;
         VictoryModal VictoryModal;
+        Rectangle Map;
 
         int deathCounter = 0;
         bool gameOver;
@@ -32,21 +33,20 @@ namespace LD24
             this.Game = game;
             this.InputState = inputState;
             Background = new Background(graphicsDevice);
-            Camera = new Camera(graphicsDevice.Viewport.Bounds);
+            Map = new Rectangle(0, 0, 5000, 5000);
+            Camera = new Camera(graphicsDevice.Viewport.Bounds, Map);
             SoundManager.camera = Camera;
         }
 
         public void Initialize()
         {
-            Rectangle map = new Rectangle(0, 0, 5000, 5000);
-           
-            SceneGraph = new SceneGraph(map, Camera);
+            SceneGraph = new SceneGraph(Map, Camera);
             
             DebugHud = new DebugHud(new Vector2(16, 16), GameAssets.FontArial, Color.Black, Color.Black, Color.Black);
 
             EvoModal = EvolutionModal.Build();
             
-            SeedLevel(map);
+            SeedLevel(Map);
 
             SoundManager.PlayMusic();
         }
