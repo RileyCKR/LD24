@@ -32,7 +32,7 @@ namespace LD24
         public static void IncrementDeadCellCount()
         {
             DeadCellCount++;
-            if (DeadCellCount % 15 == 0)
+            if (DeadCellCount == 10 || DeadCellCount == 25 || DeadCellCount == 50)
             {
                 ShowEvolutionMenu();
             }

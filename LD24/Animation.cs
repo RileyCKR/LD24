@@ -78,6 +78,8 @@ namespace LD24
             }
 
             Reset();
+
+            _FrameCounter = RNG.NexVal(0, _FrameLength);
         }
 
         private Animation(Animation animation)
