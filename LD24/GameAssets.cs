@@ -15,6 +15,8 @@ namespace LD24
         internal static Texture2D TCell1 { get; private set; }
         internal static Texture2D Antigen1 { get; private set; }
         internal static Texture2D Bubble1 { get; private set; }
+        internal static Texture2D Backdrop { get; private set; }
+
         internal static SpriteFont FontArial { get; private set; }
 
         internal static void Load(ContentManager contentManager)
@@ -24,6 +26,8 @@ namespace LD24
             TCell1 = contentManager.Load<Texture2D>(@"TCell1");
             Antigen1 = contentManager.Load<Texture2D>(@"Antigen1");
             Bubble1 = contentManager.Load<Texture2D>(@"Bubble1");
+            Backdrop = contentManager.Load<Texture2D>(@"Backdrop");
+
             FontArial = contentManager.Load<SpriteFont>(@"Fonts\Arial");
         }
     }

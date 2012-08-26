@@ -19,6 +19,7 @@ namespace LD24
         SceneGraph SceneGraph;
         DebugHud DebugHud;
         Background Background;
+        EvolutionModal EvoModal;
 
         int deathCounter = 0;
 
@@ -38,6 +39,7 @@ namespace LD24
             
             DebugHud = new DebugHud(new Vector2(16, 16), GameAssets.FontArial, Color.Black, Color.Red, Color.Black);
 
+            EvoModal = EvolutionModal.Build();
             
             SeedLevel(map);
         }
@@ -46,45 +48,52 @@ namespace LD24
         {
             if (this.Game.IsActive)
             {
-                Virus player = GameStats.PlayerVirus;
-                if (player.VirusMode != LD24.Virus.Mode.Dead)
+                if (!GameStats.NeedsEvolve)
                 {
-                    if (InputState.KeyPressed(Keys.W))
+                    Virus player = GameStats.PlayerVirus;
+                    if (player.VirusMode != LD24.Virus.Mode.Dead)
                     {
-                        player.ApplyThrust(-Vector2.UnitY);
+                        if (InputState.KeyPressed(Keys.W))
+                        {
+                            player.ApplyThrust(-Vector2.UnitY);
+                        }
+                        else if (InputState.KeyPressed(Keys.S))
+                        {
+                            player.ApplyThrust(Vector2.UnitY);
+                        }
+
+                        if (InputState.KeyPressed(Keys.A))
+                        {
+                            player.ApplyThrust(-Vector2.UnitX);
+                        }
+                        else if (InputState.KeyPressed(Keys.D))
+                        {
+                            player.ApplyThrust(Vector2.UnitX);
+                        }
                     }
-                    else if (InputState.KeyPressed(Keys.S))
+                    else
                     {
-                        player.ApplyThrust(Vector2.UnitY);
+                        deathCounter++;
+                        if (deathCounter % 180 == 0)
+                        {
+                            Virus newVirus = SceneGraph.FindLivingVirus();
+                            if (newVirus != null)
+                            {
+                                GameStats.PlayerVirus = newVirus;
+                            }
+                            else
+                            {
+                                GameOver();
+                            }
+                        }
                     }
 
-                    if (InputState.KeyPressed(Keys.A))
-                    {
-                        player.ApplyThrust(-Vector2.UnitX);
-                    }
-                    else if (InputState.KeyPressed(Keys.D))
-                    {
-                        player.ApplyThrust(Vector2.UnitX);
-                    }
+                    SceneGraph.Update();
                 }
                 else
                 {
-                    deathCounter++;
-                    if (deathCounter % 180 == 0)
-                    {
-                        Virus newVirus = SceneGraph.FindLivingVirus();
-                        if (newVirus != null)
-                        {
-                            GameStats.PlayerVirus = newVirus;
-                        }
-                        else
-                        {
-                            GameOver();
-                        }
-                    }
+                    //Show evolution screen
                 }
-
-                SceneGraph.Update();
             }
         }
 
@@ -107,6 +116,23 @@ namespace LD24
             SceneGraph.Draw(spriteBatch);
 
             spriteBatch.End();
+
+            
+
+            if (GameStats.NeedsEvolve)
+            {
+                spriteBatch.Begin(
+                    SpriteSortMode.Deferred,
+                    BlendState.AlphaBlend,
+                    SamplerState.PointClamp,
+                    null,
+                    null,
+                    null);
+
+                EvoModal.Draw(spriteBatch, SceneGraph.Map, Camera);
+
+                spriteBatch.End();
+            }
 
             DebugHud.Draw(gameTime, spriteBatch);
         }

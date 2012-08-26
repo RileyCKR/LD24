@@ -10,6 +10,7 @@ namespace LD24
         public static Virus PlayerVirus { get; set; }
         public static int DeadCellCount { get; private set; }
         public static int DeadVirusCount { get; private set; }
+        public static bool NeedsEvolve { get; private set; }
 
         public static void IncrementDeadCellCount()
         {
