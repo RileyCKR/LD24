@@ -47,28 +47,37 @@ namespace LD24
         //TODO: Need to account for edge cases when map is wrapping
         public bool IsOnScreen(Vector2 pos)
         {
+            Rectangle bufferedBounds = new Rectangle(ScreenBounds.X - 64, ScreenBounds.Y - 64, ScreenBounds.Width + 128, ScreenBounds.Height + 128);
+
             Vector2 drawPosition = GetDrawPosition(pos);
 
-            if (ScreenBounds.Contains(new Point((int)drawPosition.X, (int)drawPosition.Y)))
+            if (bufferedBounds.Contains(new Point((int)drawPosition.X, (int)drawPosition.Y)))
             {
                 return true;
             }
             else return false;
         }
 
-        public bool IsOnScreen(Rectangle bounds)
-        {
-            Vector2 boundsPosition = new Vector2(bounds.X, bounds.Y);
-            Vector2 drawPosition = GetDrawPosition(boundsPosition);
-            Rectangle cloneRect = new Rectangle((int)drawPosition.X, (int)drawPosition.Y, bounds.Width, bounds.Height);
+        //TODO: this needs work and testing
+        //public bool IsOnScreen(Rectangle bounds)
+        //{
+        //    Vector2 boundsPosition = new Vector2(bounds.X, bounds.Y);
+        //    Vector2 drawPosition = GetDrawPosition(boundsPosition);
+        //    Rectangle cloneRect = new Rectangle((int)drawPosition.X, (int)drawPosition.Y, bounds.Width, bounds.Height);
 
-            if (ScreenBounds.Contains(cloneRect))
-            {
-                return true;
-            }
-            else return false;
-        }
+        //    if (ScreenBounds.Contains(cloneRect))
+        //    {
+        //        return true;
+        //    }
+        //    else return false;
+        //}
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <param name="screenPadding">Extra buffer for sides of screen</param>
+        /// <returns></returns>
         public Vector2 GetDrawPosition(Vector2 pos)
         {
             Vector2 drawPosition = pos;
