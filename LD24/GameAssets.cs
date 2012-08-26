@@ -23,6 +23,7 @@ namespace LD24
 
         internal static SoundEffect HitSound { get; private set; }
         internal static SoundEffect UpgradeSound { get; private set; }
+        internal static SoundEffect BirthSound { get; private set; }
 
         internal static Song Music { get; private set; }
 
@@ -39,6 +40,7 @@ namespace LD24
 
             HitSound = contentManager.Load<SoundEffect>(@"Sounds\Hit");
             UpgradeSound = contentManager.Load<SoundEffect>(@"Sounds\Upgrade");
+            BirthSound = contentManager.Load<SoundEffect>(@"Sounds\Birth");
 
             Music = contentManager.Load<Song>(@"Music");
         }

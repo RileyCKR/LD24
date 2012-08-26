@@ -35,6 +35,7 @@ namespace LD24
         private int ImmunityCounter = 120;
         private int ImmunityTicks = 0;
         private bool IsImmune = false;
+        static bool birthSoundPlayed;
 
         public Virus(Texture2D texture, Rectangle drawBounds) 
             : base (texture, drawBounds)
@@ -46,6 +47,7 @@ namespace LD24
 
         public override void Update(SceneGraph graph)
         {
+            birthSoundPlayed = false;
             this.Speed = GameStats.VirusSpeed;
 
             base.Update(graph);
@@ -161,6 +163,12 @@ namespace LD24
         {
             if (Energy >= GameStats.ChildEnergyCost)
             {
+                if (!birthSoundPlayed)
+                {
+                    SoundManager.PlaySound(GameAssets.BirthSound, 1F);
+                    birthSoundPlayed = true;
+                }
+
                 Virus childVirus = Virus.Build();
                 childVirus.VirusMode = Mode.Infecting;
                 childVirus.InfectedCell = this.InfectedCell;
