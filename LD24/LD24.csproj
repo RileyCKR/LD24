@@ -107,6 +107,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Animation.cs" />
     <Compile Include="Antigen.cs" />
     <Compile Include="Background.cs" />
     <Compile Include="Bubble.cs" />

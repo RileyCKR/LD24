@@ -42,6 +42,10 @@ namespace LD24
             }
         }
 
+        public Animation Animation { get; set; }
+
+        public bool IsAnimating { get; set; }
+
         public Sprite(Texture2D texture, Rectangle drawBounds)
         {
             this.ID = _ID;
@@ -62,6 +66,13 @@ namespace LD24
                 newPosition.X += Velocity.X * Speed;
                 newPosition.Y += Velocity.Y * Speed;
                 Position = newPosition;
+            }
+
+            if (IsAnimating && Animation != null)
+            {
+                Animation.Update();
+                DrawBounds = Animation.CurrentFrameRect;
+                //DrawSize = _Animations[CurrentAnimation].CurrentFrameRect;
             }
         }
 

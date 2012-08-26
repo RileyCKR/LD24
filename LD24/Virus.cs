@@ -11,7 +11,12 @@ namespace LD24
     {
         public static Virus Build()
         {
-            return new Virus(GameAssets.Virus1, new Rectangle(0, 0, 16, 32));
+            Virus virus = new Virus(GameAssets.Virus1, new Rectangle(0, 0, 16, 32));
+            Animation anim = new Animation(2, 16, 32, 0, 0);
+            virus.IsAnimating = true;
+            virus.Animation = anim;
+            anim.FramesPerSecond = 2;
+            return virus;
         }
 
         public enum Mode
@@ -213,6 +218,7 @@ namespace LD24
                     this.VirusMode = Mode.Dead;
                     this.Tint = Color.Gray;
                     GameStats.IncrementDeadVirusCount();
+                    this.IsAnimating = false;
                 }
                 else
                 {
