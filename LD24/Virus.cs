@@ -25,6 +25,7 @@ namespace LD24
         public Cell InfectedCell;
         private int ticks;
         public int Energy;
+        private int DeathCounter = 255;
 
         public Virus(Texture2D texture, Rectangle drawBounds) 
             : base (texture, drawBounds)
@@ -59,6 +60,15 @@ namespace LD24
             }
             else if (VirusMode == Mode.Dead)
             {
+                if (DeathCounter > 0)
+                {
+                    DeathCounter--;
+                    Tint = new Color(Tint.R, Tint.G, Tint.B, DeathCounter);
+                }
+                else
+                {
+                    graph.Remove(this);
+                }
             }
         }
 

@@ -25,7 +25,6 @@ namespace LD24
         public CellState State;
 
         private int DeathCounter = 255;
-        private int tick = 0;
 
         public Cell(Texture2D texture, Rectangle drawBounds)
             : base (texture, drawBounds)
@@ -71,9 +70,7 @@ namespace LD24
 
             if (State == CellState.Dead)
             {
-                tick = tick % 2;
-
-                if (tick == 0 && DeathCounter > 0)
+                if (DeathCounter > 0)
                 {
                     DeathCounter--;
                     Tint = new Color(Tint.R, Tint.G, Tint.B, DeathCounter);
