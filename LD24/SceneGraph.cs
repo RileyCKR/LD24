@@ -52,6 +52,30 @@ namespace LD24
             }
         }
 
+        public void Remove(Sprite obj)
+        {
+            switch (obj.Type)
+            {
+                case SpriteType.Virus:
+                    VirusGraph.Remove(obj as Virus);
+                    break;
+                case SpriteType.Cell:
+                    CellGraph.Remove(obj as Cell);
+                    break;
+                case SpriteType.TCell:
+                    TCellGraph.Remove(obj as TCell);
+                    break;
+                case SpriteType.Antigen:
+                    AntigenGraph.Remove(obj as Antigen);
+                    break;
+                case SpriteType.Bubble:
+                    BubbleGraph.Remove(obj as Bubble);
+                    break;
+                default:
+                    throw new ApplicationException("Unrecognized Cell Type: " + obj.Type.ToString());
+            }
+        }
+
         public void Update()
         {
             UpdateRecursive(VirusGraph);

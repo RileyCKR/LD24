@@ -9,6 +9,9 @@ namespace LD24
 {
     class Sprite
     {
+        public static int _ID = 0;
+
+        public int ID { get; private set; }
         public Texture2D Texture { get; protected set; }
         public Color Tint { get; set; }
         public Vector2 Position { get; set; }
@@ -41,6 +44,9 @@ namespace LD24
 
         public Sprite(Texture2D texture, Rectangle drawBounds)
         {
+            this.ID = _ID;
+            _ID++;
+
             this.Tint = Color.White;
             this.Texture = texture;
             DrawBounds = drawBounds;
