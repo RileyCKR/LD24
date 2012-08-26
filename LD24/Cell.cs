@@ -28,7 +28,7 @@ namespace LD24
             : base (texture, drawBounds)
         {
             this.Type = SpriteType.Cell;
-            this.Energy = 10;
+            this.Energy = 7;
             this.State = CellState.Living;
         }
 
@@ -43,7 +43,7 @@ namespace LD24
             {
                 Energy--;
 
-                if (Energy <= 5)
+                if (Energy <= 4)
                 {
                     State = CellState.Sick;
                     Tint = new Color(200, 200, 200, 255);
