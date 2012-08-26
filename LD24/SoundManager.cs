@@ -17,11 +17,16 @@ namespace LD24
 
         public static Camera camera;
 
-        public static void PlaySound(SoundEffect sound, Vector2 position)
+        public static void PlaySound(SoundEffect sound, float volume)
+        {
+            sound.Play(volume, 0F, 0F);
+        }
+
+        public static void PlaySound(SoundEffect sound, Vector2 position, float volume)
         {
             if (camera.ScreenBounds.Contains(new Point((int)position.X, (int)position.Y)))
             {
-                sound.Play();
+                sound.Play(volume, 0F, 0F);
             }
             else
             {

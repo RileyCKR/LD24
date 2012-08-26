@@ -22,6 +22,8 @@ namespace LD24
         internal static SpriteFont FontArial { get; private set; }
 
         internal static SoundEffect HitSound { get; private set; }
+        internal static SoundEffect UpgradeSound { get; private set; }
+
         internal static Song Music { get; private set; }
 
         internal static void Load(ContentManager contentManager)
@@ -36,6 +38,7 @@ namespace LD24
             FontArial = contentManager.Load<SpriteFont>(@"Fonts\Arial");
 
             HitSound = contentManager.Load<SoundEffect>(@"Sounds\Hit");
+            UpgradeSound = contentManager.Load<SoundEffect>(@"Sounds\Upgrade");
 
             Music = contentManager.Load<Song>(@"Music");
         }

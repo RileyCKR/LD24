@@ -47,6 +47,7 @@ namespace LD24
         {
             if (Evolutions.Count > 0)
             {
+                SoundManager.PlaySound(GameAssets.UpgradeSound, .5F);
                 GameStats.NeedsEvolve = true;
                 EvolutionModal.SetMenuItems(Evolutions.ToArray());
             }
