@@ -54,6 +54,11 @@ namespace LD24
         {
             if (this.Game.IsActive)
             {
+                if (InputState.KeyDown(Keys.M))
+                {
+                    SoundManager.ToggleMusic();
+                }
+
                 if (InputState.KeyDown(Keys.OemTilde))
                 {
                     DebugHud.ShowDebugInfo = !DebugHud.ShowDebugInfo;

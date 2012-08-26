@@ -27,5 +27,25 @@ namespace LD24
                 MediaPlayer.Play(GameAssets.Music);
             }
         }
+
+        public static void StopMusic()
+        {
+            if (MediaPlayer.State != MediaState.Stopped)
+            {
+                MediaPlayer.Stop();
+            }
+        }
+
+        public static void ToggleMusic()
+        {
+            if (MediaPlayer.State == MediaState.Playing)
+            {
+                MediaPlayer.Pause();
+            }
+            else
+            {
+                MediaPlayer.Play(GameAssets.Music);
+            }
+        }
     }
 }
