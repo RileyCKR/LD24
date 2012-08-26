@@ -117,7 +117,7 @@ namespace LD24
         private void SeedLevel(Rectangle map)
         {
             int numCells = 100;
-            int numTCells = 10;
+            int numTCells = 20;
             int numAntigens = 1;
 
             //TODO: Check for collisions before adding to sceneGraph

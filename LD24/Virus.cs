@@ -21,9 +21,6 @@ namespace LD24
             Dead
         }
 
-        public Vector2 Velocity { get; set; }
-        public float Speed { get; set; }
-
         public Mode VirusMode;
         public Cell InfectedCell;
         private int ticks;
@@ -39,15 +36,12 @@ namespace LD24
 
         public override void Update(SceneGraph graph)
         {
+            base.Update(graph);
+
             if (VirusMode == Mode.Free)
             {
                 if (Velocity != Vector2.Zero)
                 {
-                    Vector2 newPosition = Position;
-
-                    newPosition.X += Velocity.X * Speed;
-                    newPosition.Y += Velocity.Y * Speed;
-                    Position = newPosition;
                     Rotate();
                     //ApplyFriction();
                 }
@@ -65,11 +59,6 @@ namespace LD24
             }
             else if (VirusMode == Mode.Dead)
             {
-                Vector2 newPosition = Position;
-
-                newPosition.X += Velocity.X * Speed;
-                newPosition.Y += Velocity.Y * Speed;
-                Position = newPosition;
             }
         }
 

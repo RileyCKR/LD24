@@ -15,6 +15,8 @@ namespace LD24
         public Rectangle DrawBounds { get; set; }
         public Point Center { get; set; }
         public SpriteType Type { get; protected set; }
+        public Vector2 Velocity { get; set; }
+        public float Speed { get; set; }
 
         private float _Rotation;
         public float Rotation
@@ -47,6 +49,14 @@ namespace LD24
 
         public virtual void Update(SceneGraph graph)
         {
+            if (Velocity != Vector2.Zero)
+            {
+                Vector2 newPosition = Position;
+
+                newPosition.X += Velocity.X * Speed;
+                newPosition.Y += Velocity.Y * Speed;
+                Position = newPosition;
+            }
         }
 
         public virtual void OnCollision(Sprite caller)
