@@ -99,14 +99,14 @@ namespace LD24
                     this.Position += offset;
 
                     this.VirusMode = Mode.Dead;
+                    this.Tint = Color.Gray;
                 }
                 else if (caller.Type == SpriteType.Antigen)
                 {
                     //Antigen callerAntigen = caller as Antigen;
                     this.VirusMode = Mode.Dead;
+                    this.Tint = Color.Gray;
                 }
-                
-
             }
         }
 
