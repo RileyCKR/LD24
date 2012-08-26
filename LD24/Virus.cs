@@ -30,13 +30,15 @@ namespace LD24
         public Virus(Texture2D texture, Rectangle drawBounds) 
             : base (texture, drawBounds)
         {
-            this.Speed = 0.15F;
+            this.Speed = GameStats.VirusSpeed;
             this.Type = SpriteType.Virus;
             this.Energy = 0;
         }
 
         public override void Update(SceneGraph graph)
         {
+            this.Speed = GameStats.VirusSpeed;
+
             base.Update(graph);
 
             if (VirusMode == Mode.Free)
@@ -176,6 +178,10 @@ namespace LD24
                 this.InfectedCell = null;
                 this.VirusMode = Mode.Free;
                 this.Velocity = RNG.RandomUnitVector();
+                if (GameStats.FlagQuickness)
+                {
+                    this.Velocity = this.Velocity * 3;
+                }
             }
         }
     }

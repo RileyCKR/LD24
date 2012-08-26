@@ -66,7 +66,7 @@ namespace LD24
                     break;
                 case 2:
                     FlagQuickness = true;
-                    VirusSpeed = 0.3F;
+                    VirusSpeed = 0.25F;
                     break;
                 case 3:
                     FlagResilient = true;
