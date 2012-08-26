@@ -20,17 +20,18 @@ namespace LD24
         Camera Camera;
         SceneGraph SceneGraph;
         DebugHud DebugHud;
-
-        public ModeGameplay(Game game, InputState inputState)
+        Background Background;
+        public ModeGameplay(Game game, InputState inputState, GraphicsDevice graphicsDevice)
         {
             this.Game = game;
             this.InputState = inputState;
+            Background = new Background(graphicsDevice);
         }
 
         public void Initialize()
         {
             DebugHud = new DebugHud(new Vector2(16, 16), GameAssets.FontArial, Color.Black, Color.Red, Color.Black);
-
+            
             Virus = Virus.Build();
             Cells = new Cell[]
             {
@@ -79,6 +80,8 @@ namespace LD24
         {
             //TODO: Move lock to update?
             Camera.Lock(Virus.Position, screenBounds);
+
+            Background.Draw();
 
             spriteBatch.Begin(
                 SpriteSortMode.Deferred,

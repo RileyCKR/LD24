@@ -45,7 +45,7 @@ namespace LD24
             spriteBatch = new SpriteBatch(GraphicsDevice);
             GameAssets.Load(this.Content);
 
-            GameMode = new ModeGameplay(this, InputState);
+            GameMode = new ModeGameplay(this, InputState, GraphicsDevice);
             GameMode.Initialize();
         }
 
@@ -63,7 +63,6 @@ namespace LD24
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Fuchsia);
             GameMode.Draw(gameTime, spriteBatch, GraphicsDevice.Viewport.Bounds);
             base.Draw(gameTime);
         }
