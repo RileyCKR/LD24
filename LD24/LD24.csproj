@@ -128,10 +128,6 @@
     <Content Include="GameThumbnail.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\WickedEngine\WickedEngine\WickedEngine.csproj">
-      <Project>{3A284F0C-CF8F-4AB0-970B-BC0B919B18E0}</Project>
-      <Name>WickedEngine</Name>
-    </ProjectReference>
     <ProjectReference Include="..\LD24Content\LD24Content.contentproj">
       <Name>LD24Content</Name>
       <XnaReferenceType>Content</XnaReferenceType>
