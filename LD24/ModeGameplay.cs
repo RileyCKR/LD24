@@ -37,7 +37,7 @@ namespace LD24
            
             SceneGraph = new SceneGraph(map, Camera);
             
-            DebugHud = new DebugHud(new Vector2(16, 16), GameAssets.FontArial, Color.Black, Color.Red, Color.Black);
+            DebugHud = new DebugHud(new Vector2(16, 16), GameAssets.FontArial, Color.Black, Color.Black, Color.Black);
 
             EvoModal = EvolutionModal.Build();
             
@@ -50,6 +50,11 @@ namespace LD24
         {
             if (this.Game.IsActive)
             {
+                if (InputState.KeyDown(Keys.OemTilde))
+                {
+                    DebugHud.ShowDebugInfo = !DebugHud.ShowDebugInfo;
+                }
+
                 if (!GameStats.NeedsEvolve)
                 {
                     Virus player = GameStats.PlayerVirus;

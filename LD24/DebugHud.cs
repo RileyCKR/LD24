@@ -29,6 +29,8 @@ namespace LD24
         public static int CountSpritesCulled;
         public static int CountCollisionChecks;
 
+        public bool ShowDebugInfo;
+
         public DebugHud(Vector2 position, SpriteFont font, Color colorNormal, Color colorSlow, Color colorShadow)
         {
             Position = position;
@@ -44,17 +46,19 @@ namespace LD24
             SetFPS(gameTime.ElapsedGameTime);
 
             string text = "Cells Killed: " + GameStats.DeadCellCount + Environment.NewLine;
-            text += "Viruses Killed: " + GameStats.DeadVirusCount + Environment.NewLine;
-            text += "FPS: " + frameRate + Environment.NewLine;
-            text += "Viruses: " + CountVirus + Environment.NewLine;
-            text += "Cells: " + CountCell + Environment.NewLine;
-            text += "TCells: " + CountTCell + Environment.NewLine;
-            text += "Antigens: " + CountAntigen + Environment.NewLine;
-            text += "Draw Calls: " + CountSpritesDrawn + Environment.NewLine;
-            text += "Sprites Culled: " + CountSpritesCulled + Environment.NewLine;
-            text += "Collision Checks: " + CountCollisionChecks + Environment.NewLine;
-            text += "Position: " + ((int)GameStats.PlayerVirus.Position.X).ToString() + ", " + ((int)GameStats.PlayerVirus.Position.Y).ToString() + Environment.NewLine;
-
+            if (ShowDebugInfo)
+            {
+                text += "Viruses Killed: " + GameStats.DeadVirusCount + Environment.NewLine;
+                text += "FPS: " + frameRate + Environment.NewLine;
+                text += "Viruses: " + CountVirus + Environment.NewLine;
+                text += "Cells: " + CountCell + Environment.NewLine;
+                text += "TCells: " + CountTCell + Environment.NewLine;
+                text += "Antigens: " + CountAntigen + Environment.NewLine;
+                text += "Draw Calls: " + CountSpritesDrawn + Environment.NewLine;
+                text += "Sprites Culled: " + CountSpritesCulled + Environment.NewLine;
+                text += "Collision Checks: " + CountCollisionChecks + Environment.NewLine;
+                text += "Position: " + ((int)GameStats.PlayerVirus.Position.X).ToString() + ", " + ((int)GameStats.PlayerVirus.Position.Y).ToString() + Environment.NewLine;
+            }
             SpriteBatch.Begin();
 
             SpriteBatch.DrawString(Font, text, Position2, ColorShadow);
