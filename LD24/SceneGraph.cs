@@ -9,49 +9,61 @@ namespace LD24
 {
     class SceneGraph
     {
-        private List<Sprite> Graph { get; set; }
+        private List<Sprite> VirusGraph = new List<Sprite>();
+        private List<Sprite> CellGraph = new List<Sprite>();
+        private List<Sprite> TCellGraph = new List<Sprite>();
+        private List<Sprite> AntigenGraph = new List<Sprite>();
 
         int NodesCulled;
         int DrawCalls;
         int CollisionChecks;
-        int virusCount;
-        int cellCount;
-        int tcellCount;
-        int antigenCount;
 
         public Rectangle Map;
         public Camera Camera;
 
         public SceneGraph(Rectangle map, Camera camera)
         {
-            this.Graph = new List<Sprite>();
             this.Map = map;
             this.Camera = camera;
         }
 
         public void Add(Sprite obj)
         {
-            Graph.Add(obj);
+            switch (obj.Type)
+            {
+                case SpriteType.Virus:
+                    VirusGraph.Add(obj as Virus);
+                    break;
+                case SpriteType.Cell:
+                    CellGraph.Add(obj as Cell);
+                    break;
+                case SpriteType.TCell:
+                    TCellGraph.Add(obj as TCell);
+                    break;
+                case SpriteType.Antigen:
+                    AntigenGraph.Add(obj as Antigen);
+                    break;
+                default:
+                    throw new ApplicationException("Unrecognized Cell Type: " + obj.Type.ToString());
+            }
         }
 
         public void Update()
         {
-            virusCount = 0;
-            cellCount = 0;
-            tcellCount = 0;
-            antigenCount = 0;
+            UpdateRecursive(VirusGraph);
+            UpdateRecursive(CellGraph);
+            UpdateRecursive(TCellGraph);
+            UpdateRecursive(AntigenGraph);
 
-            UpdateRecursive(Graph);
+            DebugHud.CountVirus = VirusGraph.Count;
+            DebugHud.CountCell = CellGraph.Count;
+            DebugHud.CountTCell = TCellGraph.Count;
+            DebugHud.CountAntigen = AntigenGraph.Count;
 
-            DebugHud.CountVirus = virusCount;
-            DebugHud.CountCell = cellCount;
-            DebugHud.CountTCell = tcellCount;
-            DebugHud.CountAntigen = antigenCount;
-
-            ProcessCollisionsFirstLoop(Graph);
+            ProcessCollisionsFirstLoop();
         }
 
-        private void UpdateRecursive(IList<Sprite> layer)
+        private void UpdateRecursive(List<Sprite> layer)
         {
             //TODO: Items can be added to this list while the enumeration is happening,
             //should a buffer be implemented?
@@ -61,60 +73,64 @@ namespace LD24
 
                 node.Update(this);
 
-                switch (node.Type)
-                {
-                    case SpriteType.Virus:
-                        virusCount++;
-                        break;
-                    case SpriteType.Cell:
-                        cellCount++;
-                        break;
-                    case SpriteType.TCell:
-                        tcellCount++;
-                        break;
-                    case SpriteType.Antigen:
-                        antigenCount++;
-                        break;
-                }
-
                 node.Position = LockToMap(node.Position);
                 
                 //UpdateRecursive(node.Children);
             }
         }
 
-        private void ProcessCollisionsFirstLoop(IList<Sprite> layer)
+        private void ProcessCollisionsFirstLoop()
         {
             CollisionChecks = 0;
 
-            for (int x = 0; x < layer.Count; x++)
-            {
-                Sprite node = layer[x];
+            //check virus to cell
+            ProcessCollisionsOuterLoop(VirusGraph, CellGraph);
 
-                ProcessCollisionsRecursive(Graph, node);
-            }
+            //check virus to tcell
+            ProcessCollisionsOuterLoop(VirusGraph, TCellGraph);
+
+            //check virus to antigen
+            ProcessCollisionsOuterLoop(VirusGraph, AntigenGraph);
+            
+            //check tcell to tcell
+            ProcessCollisionsOuterLoop(TCellGraph, TCellGraph);
+
+            //check tcell to cell
+            ProcessCollisionsOuterLoop(TCellGraph, CellGraph);
+
+            //for (int x = 0; x < layer.Count; x++)
+            //{
+            //    Sprite node = layer[x];
+
+            //    ProcessCollisionsRecursive(Graph, node);
+            //}
 
             DebugHud.CountCollisionChecks = CollisionChecks;
         }
 
-        private void ProcessCollisionsRecursive(IList<Sprite> layer, Sprite caller)
+        private void ProcessCollisionsOuterLoop(List<Sprite> layer, List<Sprite> check)
         {
             for (int x = 0; x < layer.Count; x++)
             {
                 Sprite node = layer[x];
-                //Don't check for collisions with the caller
+                ProcessCollisions(check, node);
+            }
+        }
+
+        private void ProcessCollisions(List<Sprite> layer, Sprite caller)
+        {
+            for (int x = 0; x < layer.Count; x++)
+            {
+                Sprite node = layer[x];
+
+                //Don't check for collisions with yourself
                 if (node != caller)
                 {
-                    if (node.Type == SpriteType.Virus && caller.Type == SpriteType.Virus)
-                    {
-                        continue;
-                    }
-
                     CollisionChecks++;
                     if (node.CollisionBox.Intersects(caller.CollisionBox))
                     {
                         caller.OnCollision(node);
-                        return;
+                        break;
                     }
                 }
             }
@@ -125,13 +141,16 @@ namespace LD24
             NodesCulled = 0;
             DrawCalls = 0;
 
-            DrawRecursive(Graph, spriteBatch);
+            DrawRecursive(TCellGraph, spriteBatch);
+            DrawRecursive(CellGraph, spriteBatch);
+            DrawRecursive(VirusGraph, spriteBatch);
+            DrawRecursive(AntigenGraph, spriteBatch);
 
             DebugHud.CountSpritesDrawn = DrawCalls;
             DebugHud.CountSpritesCulled = NodesCulled;
         }
 
-        private void DrawRecursive(IList<Sprite> layer, SpriteBatch spriteBatch)
+        private void DrawRecursive(List<Sprite> layer, SpriteBatch spriteBatch)
         {
             for (int x = 0; x < layer.Count; x++)
             {
@@ -154,9 +173,9 @@ namespace LD24
 
         public Virus FindLivingVirus()
         {
-            foreach (Sprite sprite in Graph)
+            foreach (Sprite sprite in VirusGraph)
             {
-                if (sprite.Type == SpriteType.Virus && (sprite as Virus).VirusMode != Virus.Mode.Dead)
+                if ((sprite as Virus).VirusMode != Virus.Mode.Dead)
                 {
                     return sprite as Virus;
                 }
