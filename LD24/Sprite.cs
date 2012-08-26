@@ -53,11 +53,43 @@ namespace LD24
         {
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch, Rectangle map, Camera camera)
         {
+            Vector2 drawPosition = Position;
+
+            if (camera.Position.X < 2000)
+            {
+                if ((map.Width - Position.X) < 2000)
+                {
+                    drawPosition.X = Position.X - map.Width;
+                }
+            }
+            else if (map.Width - camera.Position.X < 2000)
+            {
+                if (Position.X < 2000)
+                {
+                    drawPosition.X = map.Width + Position.X;
+                }
+            }
+
+            if (camera.Position.Y < 2000)
+            {
+                if ((map.Height - Position.Y) < 2000)
+                {
+                    drawPosition.Y = Position.Y - map.Height;
+                }
+            }
+            else if (map.Height - camera.Position.Y < 2000)
+            {
+                if (Position.Y < 2000)
+                {
+                    drawPosition.Y = map.Height + Position.Y;
+                }
+            }
+
             spriteBatch.Draw(
                     Texture,
-                    Position,
+                    drawPosition,
                     DrawBounds,
                     Tint,
                     Rotation,

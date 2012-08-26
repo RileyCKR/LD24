@@ -16,7 +16,7 @@ namespace LD24
         Game Game;
         InputState InputState;
         Cell[] Cells;
-        Virus Virus;
+        public static Virus Virus;
         Camera Camera;
         SceneGraph SceneGraph;
         DebugHud DebugHud;
@@ -33,10 +33,14 @@ namespace LD24
 
         public void Initialize()
         {
-            SceneGraph = new SceneGraph();
-            SeedLevel();
+            Rectangle map = new Rectangle(0, 0, 10000, 10000);
             Camera = new Camera();
+            SceneGraph = new SceneGraph(map, Camera);
+            
             DebugHud = new DebugHud(new Vector2(16, 16), GameAssets.FontArial, Color.Black, Color.Red, Color.Black);
+
+            
+            SeedLevel(map);
         }
 
         public void Update(GameTime gameTime)
@@ -69,7 +73,7 @@ namespace LD24
                     Virus newVirus = SceneGraph.FindLivingVirus();
                     if (newVirus != null)
                     {
-                        this.Virus = newVirus;
+                        Virus = newVirus;
                     }
                     else
                     {
@@ -110,26 +114,25 @@ namespace LD24
             this.Game.Exit();
         }
 
-        private void SeedLevel()
+        private void SeedLevel(Rectangle map)
         {
             int numCells = 100;
             int numTCells = 10;
             int numAntigens = 1;
-            Rectangle mapBounds = new Rectangle(0, 0, 10000, 10000);
 
             //TODO: Check for collisions before adding to sceneGraph
 
             for (int x = 0; x < numTCells; x++)
             {
                 TCell tcell = TCell.Build();
-                tcell.Position = RNG.RandomVectorWithinBounds(mapBounds);
+                tcell.Position = RNG.RandomVectorWithinBounds(map);
                 SceneGraph.Add(tcell);
             }
 
             for (int x = 0; x < numCells; x++)
             {
                 Cell cell = Cell.Build();
-                cell.Position = RNG.RandomVectorWithinBounds(mapBounds);
+                cell.Position = RNG.RandomVectorWithinBounds(map);
                 SceneGraph.Add(cell);
             }
 
@@ -139,7 +142,7 @@ namespace LD24
             for (int x = 0; x < numAntigens; x++)
             {
                 Antigen antigen = Antigen.Build();
-                antigen.Position = RNG.RandomVectorWithinBounds(mapBounds);
+                antigen.Position = RNG.RandomVectorWithinBounds(map);
                 SceneGraph.Add(antigen);
             }
         }

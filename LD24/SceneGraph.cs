@@ -19,10 +19,14 @@ namespace LD24
         int tcellCount;
         int antigenCount;
 
+        public Rectangle Map;
+        public Camera Camera;
 
-        public SceneGraph()
+        public SceneGraph(Rectangle map, Camera camera)
         {
             this.Graph = new List<Sprite>();
+            this.Map = map;
+            this.Camera = camera;
         }
 
         public void Add(Sprite obj)
@@ -55,6 +59,8 @@ namespace LD24
             {
                 Sprite node = layer[x];
 
+                node.Update(this);
+
                 switch (node.Type)
                 {
                     case SpriteType.Virus:
@@ -71,8 +77,8 @@ namespace LD24
                         break;
                 }
 
-                node.Update(this);
-
+                node.Position = LockToMap(node.Position);
+                
                 //UpdateRecursive(node.Children);
             }
         }
@@ -136,7 +142,7 @@ namespace LD24
                 if (true)
                 {
                     DrawCalls++;
-                    node.Draw(spriteBatch);
+                    node.Draw(spriteBatch, Map, Camera);
                     //DrawRecursive(node.Children);
                 }
                 else
@@ -157,6 +163,31 @@ namespace LD24
             }
 
             return null;
+        }
+
+        public Vector2 LockToMap(Vector2 pos)
+        {
+            Vector2 newPos = Vector2.Zero;
+
+            if (pos.X < 0)
+            {
+                newPos.X = Map.Width + pos.X;
+            }
+            else
+            {
+                newPos.X = pos.X % Map.Width;
+            }
+
+            if (pos.Y < 0)
+            {
+                newPos.Y = Map.Height + pos.Y;
+            }
+            else
+            {
+                newPos.Y = pos.Y % Map.Height;
+            }
+
+            return newPos;
         }
     }
 }

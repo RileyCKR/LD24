@@ -51,6 +51,7 @@ namespace LD24
             text += "Draw Calls: " + CountSpritesDrawn + Environment.NewLine;
             text += "Sprites Culled: " + CountSpritesCulled + Environment.NewLine;
             text += "Collision Checks: " + CountCollisionChecks + Environment.NewLine;
+            text += "Position: " + ((int)ModeGameplay.Virus.Position.X).ToString() + ", " + ((int)ModeGameplay.Virus.Position.Y).ToString() + Environment.NewLine;
 
             SpriteBatch.Begin();
 
