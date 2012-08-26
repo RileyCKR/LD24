@@ -135,7 +135,7 @@ namespace LD24
 
         private void BirthChild(SceneGraph graph)
         {
-            if (this.Energy > 0)
+            if (Energy > 0)
             {
                 Virus childVirus = Virus.Build();
                 childVirus.VirusMode = Mode.Infecting;
@@ -147,6 +147,7 @@ namespace LD24
                 childVirus.Position = InfectedCell.Position + offset;
 
                 graph.Add(childVirus);
+                Energy--;
             }
         }
 
