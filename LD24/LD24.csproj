@@ -118,6 +118,7 @@
     <Compile Include="GameStats.cs" />
     <Compile Include="RNG.cs" />
     <Compile Include="SceneGraph.cs" />
+    <Compile Include="SoundManager.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="SpriteType.cs" />
     <Compile Include="TCell.cs" />

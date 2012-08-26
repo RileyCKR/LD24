@@ -205,6 +205,7 @@ namespace LD24
         {
             if (!IsImmune)
             {
+                //SoundManager.PlaySound(GameAssets.HitSound);
                 health -= GameStats.DamageCost;
 
                 if (health <= 0)

@@ -42,6 +42,8 @@ namespace LD24
             EvoModal = EvolutionModal.Build();
             
             SeedLevel(map);
+
+            SoundManager.PlayMusic();
         }
 
         public void Update(GameTime gameTime)

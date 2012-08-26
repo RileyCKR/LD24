@@ -5,6 +5,8 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 
 namespace LD24
 {
@@ -19,6 +21,9 @@ namespace LD24
 
         internal static SpriteFont FontArial { get; private set; }
 
+        internal static SoundEffect HitSound { get; private set; }
+        internal static Song Music { get; private set; }
+
         internal static void Load(ContentManager contentManager)
         {
             Cell1 = contentManager.Load<Texture2D>(@"Cell1");
@@ -29,6 +34,10 @@ namespace LD24
             Backdrop = contentManager.Load<Texture2D>(@"Backdrop");
 
             FontArial = contentManager.Load<SpriteFont>(@"Fonts\Arial");
+
+            HitSound = contentManager.Load<SoundEffect>(@"Sounds\Hit");
+
+            Music = contentManager.Load<Song>(@"Music");
         }
     }
 }
