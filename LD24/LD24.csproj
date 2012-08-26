@@ -113,6 +113,7 @@
     <Compile Include="SceneGraph.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="SpriteType.cs" />
+    <Compile Include="TCell.cs" />
     <Compile Include="Virus.cs" />
     <Compile Include="ModeGameplay.cs" />
     <Compile Include="GameTextures.cs" />

@@ -44,6 +44,9 @@ namespace LD24
                 SceneGraph.Add(cell);
             }
             SceneGraph.Add(Virus);
+
+            TCell tCell = new TCell(GameTextures.TCell1, new Rectangle(0, 0, 128, 128)) { Position = new Vector2(512, 512) };
+            SceneGraph.Add(tCell);
         }
 
         public void Update(GameTime gameTime)

@@ -8,6 +8,7 @@ namespace LD24
     enum SpriteType
     {
         Cell = 1,
-        Virus = 2
+        Virus = 2,
+        TCell = 3
     }
 }
