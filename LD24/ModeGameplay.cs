@@ -21,6 +21,9 @@ namespace LD24
         SceneGraph SceneGraph;
         DebugHud DebugHud;
         Background Background;
+
+        int deathCounter = 0;
+
         public ModeGameplay(Game game, InputState inputState, GraphicsDevice graphicsDevice)
         {
             this.Game = game;
@@ -78,6 +81,22 @@ namespace LD24
                     Virus.ApplyThrust(Vector2.UnitX);
                 }
             }
+            else
+            {
+                deathCounter++;
+                if (deathCounter % 180 == 0)
+                {
+                    Virus newVirus = SceneGraph.FindLivingVirus();
+                    if (newVirus != null)
+                    {
+                        this.Virus = newVirus;
+                    }
+                    else
+                    {
+                        GameOver();
+                    }
+                }
+            }
 
             SceneGraph.Update();
         }
@@ -103,6 +122,12 @@ namespace LD24
             spriteBatch.End();
 
             DebugHud.Draw(gameTime, spriteBatch);
+        }
+
+        private void GameOver()
+        {
+            //TODO: Implement
+            this.Game.Exit();
         }
     }
 }

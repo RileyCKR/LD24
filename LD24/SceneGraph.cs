@@ -103,5 +103,18 @@ namespace LD24
                 }
             }
         }
+
+        public Virus FindLivingVirus()
+        {
+            foreach (Sprite sprite in Graph)
+            {
+                if (sprite.Type == SpriteType.Virus && (sprite as Virus).VirusMode != Virus.Mode.Dead)
+                {
+                    return sprite as Virus;
+                }
+            }
+
+            return null;
+        }
     }
 }
