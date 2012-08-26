@@ -93,10 +93,10 @@ namespace LD24
             ProcessCollisionsOuterLoop(VirusGraph, AntigenGraph);
             
             //check tcell to tcell
-            ProcessCollisionsOuterLoop(TCellGraph, TCellGraph);
+            //ProcessCollisionsOuterLoop(TCellGraph, TCellGraph);
 
             //check tcell to cell
-            ProcessCollisionsOuterLoop(TCellGraph, CellGraph);
+            //ProcessCollisionsOuterLoop(TCellGraph, CellGraph);
 
             //for (int x = 0; x < layer.Count; x++)
             //{
