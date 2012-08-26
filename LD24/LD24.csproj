@@ -107,6 +107,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Antigen.cs" />
     <Compile Include="Background.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="Cell.cs" />
