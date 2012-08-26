@@ -15,7 +15,6 @@ namespace LD24
     {
         Game Game;
         InputState InputState;
-        Cell[] Cells;
         public static Virus Virus;
         Camera Camera;
         SceneGraph SceneGraph;
@@ -46,44 +45,47 @@ namespace LD24
 
         public void Update(GameTime gameTime)
         {
-            if (Virus.VirusMode != LD24.Virus.Mode.Dead)
+            if (this.Game.IsActive)
             {
-                if (InputState.KeyPressed(Keys.W))
+                if (Virus.VirusMode != LD24.Virus.Mode.Dead)
                 {
-                    Virus.ApplyThrust(-Vector2.UnitY);
-                }
-                else if (InputState.KeyPressed(Keys.S))
-                {
-                    Virus.ApplyThrust(Vector2.UnitY);
-                }
-
-                if (InputState.KeyPressed(Keys.A))
-                {
-                    Virus.ApplyThrust(-Vector2.UnitX);
-                }
-                else if (InputState.KeyPressed(Keys.D))
-                {
-                    Virus.ApplyThrust(Vector2.UnitX);
-                }
-            }
-            else
-            {
-                deathCounter++;
-                if (deathCounter % 180 == 0)
-                {
-                    Virus newVirus = SceneGraph.FindLivingVirus();
-                    if (newVirus != null)
+                    if (InputState.KeyPressed(Keys.W))
                     {
-                        Virus = newVirus;
+                        Virus.ApplyThrust(-Vector2.UnitY);
                     }
-                    else
+                    else if (InputState.KeyPressed(Keys.S))
                     {
-                        GameOver();
+                        Virus.ApplyThrust(Vector2.UnitY);
+                    }
+
+                    if (InputState.KeyPressed(Keys.A))
+                    {
+                        Virus.ApplyThrust(-Vector2.UnitX);
+                    }
+                    else if (InputState.KeyPressed(Keys.D))
+                    {
+                        Virus.ApplyThrust(Vector2.UnitX);
                     }
                 }
-            }
+                else
+                {
+                    deathCounter++;
+                    if (deathCounter % 180 == 0)
+                    {
+                        Virus newVirus = SceneGraph.FindLivingVirus();
+                        if (newVirus != null)
+                        {
+                            Virus = newVirus;
+                        }
+                        else
+                        {
+                            GameOver();
+                        }
+                    }
+                }
 
-            SceneGraph.Update();
+                SceneGraph.Update();
+            }
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch, Rectangle screenBounds)
