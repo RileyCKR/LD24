@@ -21,6 +21,14 @@ namespace LD24
         private TimeSpan elapsedTime = TimeSpan.Zero;
         private TimeSpan updateInterval = TimeSpan.FromMilliseconds(100);
 
+        public static int CountVirus;
+        public static int CountCell;
+        public static int CountTCell;
+        public static int CountAntigen;
+        public static int CountSpritesDrawn;
+        public static int CountSpritesCulled;
+        public static int CountCollisionChecks;
+
         public DebugHud(Vector2 position, SpriteFont font, Color colorNormal, Color colorSlow, Color colorShadow)
         {
             Position = position;
@@ -35,7 +43,14 @@ namespace LD24
         {
             SetFPS(gameTime.ElapsedGameTime);
 
-            string text = "FPS: " + frameRate;
+            string text = "FPS: " + frameRate + Environment.NewLine;
+            text += "Viruses: " + CountVirus + Environment.NewLine;
+            text += "Cells: " + CountCell + Environment.NewLine;
+            text += "TCells: " + CountTCell + Environment.NewLine;
+            text += "Antigens: " + CountAntigen + Environment.NewLine;
+            text += "Draw Calls: " + CountSpritesDrawn + Environment.NewLine;
+            text += "Sprites Culled: " + CountSpritesCulled + Environment.NewLine;
+            text += "Collision Checks: " + CountCollisionChecks + Environment.NewLine;
 
             SpriteBatch.Begin();
 
