@@ -169,7 +169,7 @@ namespace LD24
             {
                 if (!birthSoundPlayed)
                 {
-                    SoundManager.PlaySound(GameAssets.BirthSound, 1F);
+                    SoundManager.PlaySound(GameAssets.BirthSound, Position, 1F);
                     birthSoundPlayed = true;
                 }
 

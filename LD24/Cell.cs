@@ -51,7 +51,7 @@ namespace LD24
                 }
                 if (Energy <= 0)
                 {
-                    SoundManager.PlaySound(GameAssets.CellDeadSound, 1F);
+                    SoundManager.PlaySound(GameAssets.CellDeadSound, Position, 1F);
                     State = CellState.Dead;
                     this.Tint = new Color(50, 50, 50, 128);
                     GameStats.IncrementDeadCellCount();
