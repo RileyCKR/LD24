@@ -96,6 +96,7 @@ namespace LD24
                             Virus newVirus = SceneGraph.FindLivingVirus();
                             if (newVirus != null)
                             {
+                                newVirus.IsPlayer = true;
                                 GameStats.PlayerVirus = newVirus;
                             }
                             else
@@ -247,6 +248,7 @@ namespace LD24
             }
 
             Virus player = Virus.Build();
+            player.IsPlayer = true;
             SceneGraph.Add(player);
             GameStats.PlayerVirus = player;
 

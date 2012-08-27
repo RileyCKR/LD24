@@ -36,6 +36,7 @@ namespace LD24
         private int ImmunityTicks = 0;
         private bool IsImmune = false;
         static bool birthSoundPlayed;
+        public bool IsPlayer;
 
         public Virus(Texture2D texture, Rectangle drawBounds) 
             : base (texture, drawBounds)
@@ -57,7 +58,10 @@ namespace LD24
                 if (Velocity != Vector2.Zero)
                 {
                     Rotate();
-                    //ApplyFriction();
+                    if (IsPlayer)
+                    {
+                        ApplyFriction();
+                    }
                 }
             }
             else if (VirusMode == Mode.Infecting)
