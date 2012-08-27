@@ -24,7 +24,7 @@ namespace LD24
         {
             new Evolution(1, "More Children"),
             new Evolution(2, "Quickness"),
-            //new Evolution(3, "Resilient"),
+            new Evolution(3, "Toughness"),
             //"Immune Compromiser",
             //"Antigen-Proof"
         };
@@ -32,7 +32,7 @@ namespace LD24
         public static void IncrementDeadCellCount()
         {
             DeadCellCount++;
-            if (DeadCellCount == 10 || DeadCellCount == 25 || DeadCellCount == 50)
+            if (DeadCellCount == 5 || DeadCellCount == 10 || DeadCellCount == 25)
             {
                 ShowEvolutionMenu();
             }
