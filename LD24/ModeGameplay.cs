@@ -232,20 +232,18 @@ namespace LD24
             int numAntigens = 50;
             int numBubbles = 5;
 
-            //TODO: Check for collisions before adding to sceneGraph
+            Rectangle unsafeBounds = new Rectangle(-256, -256, 512, 512);
 
             for (int x = 0; x < numTCells; x++)
             {
                 TCell tcell = TCell.Build();
-                tcell.Position = RNG.RandomVectorWithinBounds(map);
-                SceneGraph.Add(tcell);
+                RandomizePositionAndSpawn(tcell, map, unsafeBounds);
             }
 
             for (int x = 0; x < numCells; x++)
             {
                 Cell cell = Cell.Build();
-                cell.Position = RNG.RandomVectorWithinBounds(map);
-                SceneGraph.Add(cell);
+                RandomizePositionAndSpawn(cell, map, unsafeBounds);
             }
 
             Virus player = Virus.Build();
@@ -255,8 +253,7 @@ namespace LD24
             for (int x = 0; x < numAntigens; x++)
             {
                 Antigen antigen = Antigen.Build();
-                antigen.Position = RNG.RandomVectorWithinBounds(map);
-                SceneGraph.Add(antigen);
+                RandomizePositionAndSpawn(antigen, map, unsafeBounds);
             }
 
             for (int x = 0; x < numBubbles; x++)
@@ -265,6 +262,24 @@ namespace LD24
                 bubble.Position = RNG.RandomVectorWithinBounds(Camera.ScreenBounds);
                 SceneGraph.Add(bubble);
             }
+        }
+
+        private void RandomizePositionAndSpawn(Sprite sprite, Rectangle map, Rectangle bounds)
+        {
+            Vector2 tempPos = RNG.RandomVectorWithinBounds(map);
+            while (true)
+            {
+                if (!bounds.Contains(new Point((int)tempPos.X, (int)tempPos.Y)))
+                {
+                    break;
+                }
+                else
+                {
+                    tempPos = RNG.RandomVectorWithinBounds(map);
+                }
+            }
+            sprite.Position = tempPos;
+            SceneGraph.Add(sprite);
         }
     }
 }
