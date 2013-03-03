@@ -35,8 +35,7 @@ namespace LD24
 
         protected override void Initialize()
         {
-            //TODO: Remove hard-coded seed
-            RNG.Seed(2);
+            RNG.Seed();
             InputState = new InputState();
             base.Initialize();
         }
